@@ -58,7 +58,7 @@ class Redis
     {
         $key = md5(json_encode([$host, $auth, $db, $port, $uniqid]));
 
-        if (empty(self::$_instance[$key])) {
+        if (!isset(self::$_instance[$key]) || !(self::$_instance[$key] instanceof Redis)) {
             self::$_instance[$key] = new self($host, $port, $auth, $db);
         }
         return self::$_instance[$key];
